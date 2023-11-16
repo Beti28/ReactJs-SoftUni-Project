@@ -1,0 +1,47 @@
+.welcome-content {
+    background-image: url(./petd.jpg);
+      width: 100vw;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+  }
+  
+  .welcome-content-text p{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    position: center;
+    left:200px;
+    font-weight: 600;
+    font-size: 23px;
+    margin-top: 40px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .welcome-content-text h1 {
+    font-size: 60px;
+    margin: 0px;
+    color: rgb(155, 43, 43);
+    font-weight: 400;
+    display: flex;
+    width: 350px;
+    margin-left: 10%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    left: 550px;
+    text-align: center;
+  }
+  
+  .welcome-content-text p {
+    color: rgb(201, 36, 36);
+    
+  }
+  
+  h1.bold-welcome {
+    font-weight: 800;
+  }  
