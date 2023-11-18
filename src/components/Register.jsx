@@ -1,29 +1,82 @@
-import'./register.css';
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase-config';
+import './register.css';
 import dog3 from './dog3.jpg';
+import { useNavigate } from 'react-router-dom';
 
-export default function Register() {
-    return (
-      <section id="register-page" className="content auth">
-        <form id="register" className="registerForm">
-          <div className="container">
-            <div className="brand-logo"></div>
-            <h1>Register</h1>
-  
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" />
-  
-            <label htmlFor="pass">Password:</label>
-            <input type="password" name="password" id="register-password" />
-  
-            <label htmlFor="con-pass">Confirm Password:</label>
-            <input type="password" name="confirm-password" id="confirm-password" />
-  
-            <input className="btn submit" type="submit" value="Register" />
-            <p >
-                <img src={dog3} alt='' className="registerImg" />
+function Register() {
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+
+  const onRegister = async () => {
+    try {
+      if(registerPassword.length <6){
+        alert("Password must be at least 6 characters long!");
+      }
+      if (registerPassword !== confirmPassword) {
+        alert("Passwords don't match");
+      }
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+    navigate('/');
+  };
+
+  return (
+    <div id="register-page">
+      <div className="registerForm">
+        <h1>Create User</h1>
+        <form>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(event) => setRegisterEmail(event.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(event) => setRegisterPassword(event.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Confirm Password:</label>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(event) => setConfirmPassword(event.target.value)}
+            />
+          </div>
+
+          <button type="button" className='btnregister' onClick={onRegister}>
+            Create User
+          </button>
+
+          <div>
+            <p>
+              <img src={dog3} alt='' className="registerImg" />
             </p>
           </div>
         </form>
-      </section>
-    );
-  }
+      </div>
+    </div>
+  );
+}
+
+export default Register;
+
