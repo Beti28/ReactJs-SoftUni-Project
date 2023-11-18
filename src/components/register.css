@@ -2,8 +2,6 @@
     display: block;
     text-align: center;
     margin-top: 50px;
-    
-    
   }
   
   .registerForm {
@@ -11,7 +9,7 @@
     text-align: center;
     position: relative;
     width: 300px;
-    height: 500px;
+    height: 510px;
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
@@ -19,11 +17,11 @@
     box-shadow: 14px 14px 30px #464a4e, -14px -14px 30px #464a4e;
     justify-content: center;
   }
-  
-  .registerForm h1 {
-    font-weight: bold;
-  }
   .registerImg{
     width: 180px;
     height: 180px;
+    margin:-10px
+  }
+  .btnregister{
+    margin:20px
   }
