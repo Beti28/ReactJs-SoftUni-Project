@@ -1,21 +1,27 @@
-#login{
+#login-page {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .loginForm {
     display: inline-block;
     text-align: center;
     position: relative;
     width: 300px;
-    height: 500px;
+    height: 510px;
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
     background: #cf370991;
     box-shadow: 14px 14px 30px #464a4e, -14px -14px 30px #464a4e;
     justify-content: center;
-}
-#login-page{
-    display: block;
-    text-align: center;
-    margin-top: 50px;
-}
-.auth h1{
-    font-weight: bold;
-}
+  }
+  .loginImg{
+    width: 180px;
+    height: 180px;
+    margin:-10px
+  }
+  .btnlogin{
+    margin:20px
+  }
