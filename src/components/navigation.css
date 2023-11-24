@@ -1,19 +1,29 @@
-.nav-link {
-    color: black !important; /* Navbar link text color */
-    margin-right: 15px; /* Adjust the right margin as needed */
-    
-    font-size: 1.2rem; /* Adjust the font size as needed */
-}
-.nav-link:hover {
-    color: black; 
-    text-decoration: none; 
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+#root{
+    height: 100vh;
+    overflow: hidden;
    
 }
-#basic-navbar-nav{
-    flex-direction: column-reverse;
-    align-items: end;
+.nav-bar{
+    background: transparent;
     display: flex;
-   
+    justify-content:end;
+    align-items: center;
+    margin-right: 150px;
+    position: absolute;
+    font-weight: bolder;
+    right: 2px;
+    font-size: 25px;
+    gap:20px;
+    font-family: 'Agbalumo', cursive;
+    margin-right: 10px;
 }
+.nav-bar a,span{
+   color:white;
+    text-shadow: 2px 2px 2px black;
+}
+
 
 

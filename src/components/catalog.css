@@ -14,7 +14,7 @@
 
 .animals-board {
     box-shadow: 6px 6px 20px #464a4e62, -6px -6px 20px #464a4e62;
-    width: 350px;
+    width: 450px;
     text-align: center;
     border: 1px solid #FFC5C1;
     background: #cf370991;
@@ -35,13 +35,16 @@
 
 .animal-image-cover {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
 }
 
 .animals-board .action {
     display: flex;
     text-align: center;
+    align-items: center;
+    position: relative;
+    left: 10px;
 }
 
 .animals-board .btn {
@@ -81,4 +84,19 @@
     font-weight: bolder;
     border: black solid;
     padding: 30px;
+}
+.animals-dashboard {
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.animals-board {
+    margin-right: 75px;
+    margin-left: 85px;
+}
+.catalog{
+    margin-top: 100px;
 }

@@ -1,19 +1,37 @@
-import "./login.css"
+import React, { useState } from "react";
 import { auth } from '../firebase-config';
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
-import { useState} from "react";
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import dog4 from './dog4.jpg'
+import dog4 from './dog4.jpg';
+import "./login.css"
 
 export default function Login() {
-    const [loginEmail, setLoginEmail] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
-  onAuthStateChanged(auth, (currentUser) =>{
-    setUser(currentUser)
-  })
+
+  const validateForm = () => {
+    // Simple email validation
+    if (!loginEmail || !loginEmail.includes("@")) {
+      setError("Invalid email address");
+      return false;
+    }
+
+    // Simple password validation
+    if (!loginPassword || loginPassword.length < 6) {
+      setError("Password should be at least 6 characters");
+      return false;
+    }
+
+    return true;
+  };
+
   const onLogin = async () => {
+    if (!validateForm()) {
+      return; // Do not proceed with login if validation fails
+    }
+
     try {
       const user = await signInWithEmailAndPassword(
         auth,
@@ -21,15 +39,19 @@ export default function Login() {
         loginPassword
       );
       console.log(user);
+      navigate('/');
     } catch (error) {
       console.log(error.message);
+      setError("Invalid email or password"); // Set a general error message for login failure
     }
-    navigate('/');
   };
 
-    return (
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
 
-      <div id="login-page">
+  return (
+    <div id="login-page">
       <div className="loginForm">
         <h1>Login</h1>
         <form>
@@ -50,20 +72,14 @@ export default function Login() {
               onChange={(event) => setLoginPassword(event.target.value)}
             />
           </div>
-          <button type="button" className='btnlogin' onClick={onLogin}>
+
+          <button type="button" className="btnlogin" onClick={onLogin}>
             Login
           </button>
-          <div>
-            <p>
-              <img src={dog4} alt='' className="loginImg" />
-            </p>
-          </div>
-          <div>
-              <h4>User logged in:</h4>
-              {user?.email}
-          </div>
+
+          {error && <div className="error-message">{error}</div>}
         </form>
       </div>
     </div>
-    );
+  );
 }
