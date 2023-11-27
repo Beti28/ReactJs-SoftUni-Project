@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
-import Catalog from './components/Catalog';
-import Create from './components/Create';
-import Details from './components/Details';
-import Edit from './components/Edit';
+import Navigation from './components/Navigation/Navigation';
+import Home from './components/Home/Home';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import Catalog from './components/Catalog/Catalog';
+import Create from './components/Create/Create';
+import Details from './components/Details/Details';
+import Edit from './components/Edit/Edit';
 import { auth } from './firebase-config';  // Import your firebase auth
 import { useEffect, useState } from 'react';
 

@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+#login-page {
+    display: block;
+    text-align: center;
+    background-image: url(../images/login1.jpg);
+    background-size: cover; /* Adjust the background size as needed */
+    background-position: center; /* Adjust the background position as needed */
+    height: 100vh;
+    font-family: 'Agbalumo', cursive;
+  }
+  
+  .loginForm {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #fffefe7f;
+    box-shadow: 14px 14px 30px #464a4e, -14px -14px 30px #464a4e;
+    justify-content: center;
+    margin-top: 100px;
+  }
+  .loginForm input{
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .loginForm label{
+    margin-bottom: 5px;
+    font-size: 20px;
+  }
+  .btnlogin {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 50%;
+    box-sizing: border-box;
+    margin:10px
+  }
+  .btnlogin:hover{
+    background-color: #45a049;
+  }
+  .loginForm h1{
+    margin-top: 20px;
+  }

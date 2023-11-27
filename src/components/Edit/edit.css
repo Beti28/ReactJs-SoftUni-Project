@@ -1,0 +1,40 @@
+  #edit-post {
+    display: block;
+    text-align: center;
+    background-image: url(../images/edit.jpg);
+    background-size: cover; /* Adjust the background size as needed */
+    background-position: center; /* Adjust the background position as needed */
+    height: 100vh;
+    font-family: 'Agbalumo', cursive;
+  }
+  
+  .edit-post-form{
+    display: inline-block;
+    max-width: 400px;
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 100px;
+    background: #f6f4f4d8;
+    box-shadow: 14px 14px 30px #464a4e, -14px -14px 30px #464a4e;
+  }
+  .btn-edit-post {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-control {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .btn-edit-post:hover {
+    background-color: #45a049;
+  }
