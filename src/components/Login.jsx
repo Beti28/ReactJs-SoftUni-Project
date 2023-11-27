@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from '../firebase-config';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import dog4 from './dog4.jpg';
-import "./login.css"
+import "./login.css";
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  // Define setUser function to handle the authenticated user
+  const setUser = (user) => {
+    // Your logic to handle the authenticated user
+    // For example, you can set it to the state or take other actions
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return () => unsubscribe();
+  }, []); // Empty dependency array to run the effect only once
 
   const validateForm = () => {
     // Simple email validation
@@ -33,29 +47,20 @@ export default function Login() {
     }
 
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       navigate('/');
     } catch (error) {
       console.log(error.message);
-      setError("Invalid email or password"); // Set a general error message for login failure
+      setError("Invalid email or password");
     }
   };
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
 
   return (
     <div id="login-page">
       <div className="loginForm">
         <h1>Login</h1>
         <form>
-          <div className="form-group">
+        <div className="form-group">
             <label>Email:</label>
             <input
               type="email"
@@ -72,11 +77,9 @@ export default function Login() {
               onChange={(event) => setLoginPassword(event.target.value)}
             />
           </div>
-
           <button type="button" className="btnlogin" onClick={onLogin}>
             Login
           </button>
-
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>

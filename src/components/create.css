@@ -1,7 +1,12 @@
+.createe{
+  background-image: url(./register1.jpg);
+  background-size: cover; /* Adjust the background size as needed */
+  background-position: center; /* Adjust the background position as needed */
+}
 .post-form {
     max-width: 400px;
     margin: 0 auto;
-    background-color: #f34515; 
+    background-color: #cccccc42;
     padding: 20px; 
     border-radius: 30px; 
     text-align: center;

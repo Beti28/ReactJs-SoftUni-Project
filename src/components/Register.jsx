@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import './register.css';
-import dog3 from './dog3.jpg';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {

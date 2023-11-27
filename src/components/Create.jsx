@@ -75,6 +75,7 @@ function Create() {
     }, []);
 
     return (
+        <div className="createe">
         <div className="post-form">
             <h1>Create Post</h1>
             <label htmlFor="petName">What is the name of the pet?</label>
@@ -115,11 +116,12 @@ function Create() {
             <input id="petImage" className="form-control" type="file" onChange={(event) => { setNewImage(event.target.files[0]) }} />
 
             <label htmlFor="petHistory">What is his story?</label>
-            <input id="petHistory" className="form-control" placeholder="History..." onChange={(event) => { setNewHistory(event.target.value) }} />
+            <textarea id="petHistory" className="form-control" placeholder="History..." onChange={(event) => { setNewHistory(event.target.value) }} />
 
             <button className="btn-create-post" onClick={handleCombinedButtonClick}>
                 Create Post
             </button>
+        </div>
         </div>
     );
 }

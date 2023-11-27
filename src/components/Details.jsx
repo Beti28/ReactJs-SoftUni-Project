@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import './details.css'
+import './details.css';
 
 const Details = ({ user }) => {
   const { id } = useParams();
   const [petDetails, setPetDetails] = useState(null);
- 
+  const [isAuthor, setIsAuthor] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchPetDetails = async () => {
       try {
@@ -16,7 +17,13 @@ const Details = ({ user }) => {
         const petSnapshot = await getDoc(petDocRef);
 
         if (petSnapshot.exists()) {
-          setPetDetails({ id: petSnapshot.id, ...petSnapshot.data() });
+          const petData = petSnapshot.data();
+          setPetDetails({ id: petSnapshot.id, ...petData });
+          if (user && user.uid && petData.authorUid === user.uid) {
+            setIsAuthor(true);
+          } else {
+            setIsAuthor(false);
+          }
         } else {
           console.log('Pet not found');
         }
@@ -26,18 +33,19 @@ const Details = ({ user }) => {
     };
 
     fetchPetDetails();
-  }, [id]);
+  }, [id, user]);
 
+  console.log('User UID:', user?.uid);
+ {/* "authorUid": "kWaZalBIVXTmZeOeoTc5EbcQY8g1" Firestore Database. + comments catalog + css catalog*/}
   const handleEdit = () => {
- 
-    console.log('Edit button clicked');
+    navigate('/edit/:id');
   };
 
   const handleDelete = async () => {
     try {
       const petDocRef = doc(db, 'pets', id);
       await deleteDoc(petDocRef);
-      navigate("/")
+      navigate('/');
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -47,6 +55,9 @@ const Details = ({ user }) => {
     return <p>Loading...</p>;
   }
 
+  //console.log('user:', user.email);
+  //console.log('isAuthor:', isAuthor);
+
   return (
     <div id="detailsPage">
       <div className="details">
@@ -55,21 +66,24 @@ const Details = ({ user }) => {
         </div>
         <div className="animalInfo">
           <h2>Name: {petDetails.name}</h2>
-          <h2>{petDetails.breed}</h2>
+          <h2>Breed: {petDetails.breed}</h2>
           <h2>Gender: {petDetails.gender}</h2>
           <h2>Age: {petDetails.age}</h2>
           <h2>History: {petDetails.history}</h2>
         </div>
-       
+
         <div className="actionBtn">
-          <Link to={`/edit/${petDetails.id}`} className="btn" onClick={handleEdit}>
-            Edit
-          </Link>
-          <button className="btn" onClick={handleDelete} >
-            Delete
-          </button>
+          {isAuthor && (
+            <Link to={`/edit/${petDetails.id}`} className="btn" onClick={handleEdit}>
+              Edit
+            </Link>
+          )}
+          {isAuthor && (
+            <button className="btn" onClick={handleDelete}>
+              Delete
+            </button>
+          )}
         </div>
-        
       </div>
     </div>
   );
