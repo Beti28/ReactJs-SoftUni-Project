@@ -2,7 +2,7 @@
 One Tail Two Ears
 
 # About the Project: 📚
-One Tail Two Ears is web application that is used to create publications for the adoption of homeless animals.Users can add a new post with all the necessary data. Users can also write comments on posts.
+One Tail Two Ears is web application that is used to create publications for the adoption of homeless animals.Users can add a new post with all the necessary details. Users can also write comments on posts.
 
 # Setup / Installation: 💻
 ## Run locally
