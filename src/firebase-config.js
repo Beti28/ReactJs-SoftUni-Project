@@ -1,7 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from '@firebase/firestore';
-import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
+import { getAuth,
+  createUserWithEmailAndPassword,
+    signOut,
+  signInWithEmailAndPassword, } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -18,3 +21,63 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app)
 export const storage = getStorage(app)
+
+
+const logInWithEmailAndPassword = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    let errMessage = err.message;
+    let errCode = err.code;
+
+    console.log("err message" + errMessage);
+    console.log("err code" + errCode);
+
+    if (errCode == "auth/wrong-password") {
+      errMessage = "Invalid email or password.";
+    } else if (errCode == "auth/user-not-found") {
+      errMessage = "Invalid email or password.";
+    } else if (errCode == "auth/network-request-failed") {
+      errMessage =
+        "Error connecting to the server. Please check your network connection and try again.";
+    }
+
+    return errMessage;
+  }
+};
+const registerWithEmailAndPassword = async (name, email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+    });
+  } catch (err) {
+    let errMessage = err.message;
+    let errCode = err.code;
+
+    if (errCode == "auth/email-already-in-use") {
+      errMessage = "The email already exist.";
+    } else if (errCode == "auth/user-not-found") {
+      errMessage = "Invalid email or password.";
+    } else if (errCode == "auth/network-request-failed") {
+      errMessage =
+        "Error connecting to the server. Please check your network connection and try again.";
+    }
+
+    return errMessage;
+  }
+};
+
+const logout = () => {
+  signOut(auth);
+};
+
+export {
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  logout,
+};

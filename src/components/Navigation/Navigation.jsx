@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { useEffect, useState } from 'react';
 
+
 const Navigation = () => {
   const [user, setUser] = useState(null);
 
@@ -27,9 +28,11 @@ const Navigation = () => {
   };
 
   return (
+    
     <Nav className='nav-bar'>
       <Nav.Link as={Link} to="/">Home</Nav.Link>
       <Nav.Link as={Link} to="/catalog">Catalog</Nav.Link>
+      <Nav.Link as={Link} to="/about">About</Nav.Link>
       {!user ? (
         <>
           <Nav.Link as={Link} to="/register">Register</Nav.Link>
@@ -44,6 +47,7 @@ const Navigation = () => {
         </>
       )}
     </Nav>
+    
   );
 };
 

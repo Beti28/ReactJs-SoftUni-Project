@@ -1,58 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { auth } from '../../firebase-config';
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+// Login.jsx
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./login.css";
+import { AuthContext } from '../../context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './login.css';
 
 export default function Login() {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [error, setError] = useState(null);
+  const { userLogin, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Define setUser function to handle the authenticated user
-  const setUser = (user) => {
-    // Your logic to handle the authenticated user
-    // For example, you can set it to the state or take other actions
-  };
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [err, setErr] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
-    // Cleanup the subscription when the component unmounts
-    return () => unsubscribe();
-  }, []); // Empty dependency array to run the effect only once
+  const onLogin = async (e) => {
+    e.preventDefault();
+
+    let valid = true;
+    Object.values(err).forEach((e) => {
+      if (e.length !== 0) {
+        valid = false;
+      }
+    });
+    if (!valid) {
+      return;
+    } else {
+      userLogin(loginEmail, loginPassword).catch((error) => {
+        if (error.code === "auth/wrong-password") {
+          setErrorMessage("Wrong password. Please try again.");
+        }
+      });
+    }
+
+    if (!validateForm()) {
+      return;
+    }
+
+   
+  };
 
   const validateForm = () => {
     // Simple email validation
-    if (!loginEmail || !loginEmail.includes("@")) {
-      setError("Invalid email address");
+    if (!loginEmail || !loginEmail.includes('@')) {
+      toast.error('Invalid email address', { position: toast.POSITION.TOP_CENTER });
       return false;
     }
 
     // Simple password validation
     if (!loginPassword || loginPassword.length < 6) {
-      setError("Password should be at least 6 characters");
+      toast.error('Password should be at least 6 characters', { position: toast.POSITION.TOP_CENTER });
       return false;
     }
 
     return true;
-  };
-
-  const onLogin = async () => {
-    if (!validateForm()) {
-      return; // Do not proceed with login if validation fails
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      navigate('/');
-    } catch (error) {
-      console.log(error.message);
-      setError("Invalid email or password");
-    }
   };
 
   return (
@@ -60,7 +70,7 @@ export default function Login() {
       <div className="loginForm">
         <h1>Login</h1>
         <form>
-        <div className="form-group">
+          <div className="form-group">
             <label>Email:</label>
             <input
               type="email"
@@ -77,12 +87,13 @@ export default function Login() {
               onChange={(event) => setLoginPassword(event.target.value)}
             />
           </div>
+
           <button type="button" className="btnlogin" onClick={onLogin}>
             Login
           </button>
-          {error && <div className="error-message">{error}</div>}
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

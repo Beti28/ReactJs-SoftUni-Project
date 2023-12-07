@@ -17,6 +17,7 @@ const Catalog = () => {
     }, []);
 
     return (
+        <div id='catalog'>
         <section className='catalog'>
             <section className="animals-dashboard">
                 {pets.length === 0 ? (
@@ -25,10 +26,8 @@ const Catalog = () => {
                     </div>
                 ) : (
                     pets.map((p) => (
-                        <div key={p.id} className="animals-board">
-                            <article className="service-img">
+                        <div key={p.id} className="animals-board"> 
                                 <img className="animal-image-cover" src={p.image} alt={p.name} />
-                            </article>
                             <h4 className="name">Name: {p.name}</h4>
                             <h4 className="breed">Breed: {p.breed}</h4>
                             <h4 className="breed">Gender: {p.gender}</h4>
@@ -42,6 +41,7 @@ const Catalog = () => {
                 )}
             </section>
         </section>
+        </div>
     );
 };
 

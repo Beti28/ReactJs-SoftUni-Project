@@ -7,8 +7,10 @@ import Catalog from './components/Catalog/Catalog';
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
-import { auth } from './firebase-config';  // Import your firebase auth
+import About from './components/About/About'
+import { auth } from './firebase-config'; 
 import { useEffect, useState } from 'react';
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -23,13 +25,13 @@ function App() {
         });
 
         return () => {
-            // Unsubscribe when the component is unmounted
+         
             unsubscribe();
         };
     }, []);
 
     return (
-        <>
+        <AuthProvider>   
             <Navigation />
 
             <Routes>
@@ -40,8 +42,9 @@ function App() {
                 <Route path="/create" element={<Create />} />
                 <Route path="/details/:id" element={<Details user={user} />} />
                 <Route path="/edit/:id" element={<Edit />} />
+                <Route path="/about" element={<About />} />
             </Routes>
-        </>
+            </AuthProvider>
     );
 }
 
