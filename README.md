@@ -15,8 +15,12 @@ One Tail Two Ears is web application that is used to create publications for the
   - npm run build
   - firebase deploy
 
+# Demo Link: 🔗
+
+### https://reactjs-softuni-project.web.app
+
 # Technologies Used:  
- React, Java Script, HTML, CSS
+ React, Java Script, Leaflet, HTML, CSS
 
 # Architecture 
 
