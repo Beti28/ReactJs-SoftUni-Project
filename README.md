@@ -12,7 +12,7 @@ One Tail Two Ears is web application that is used to create publications for the
   
  ## Deploy to Firebase
 
-  - npm run built
+  - npm run build
   - firebase deploy
 
 # Technologies Used:  
